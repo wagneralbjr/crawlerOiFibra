@@ -1,14 +1,16 @@
 import os
-from flask import Flask, jsonify, request
+import flask
 
 
-app = Flask(__name__)
+app = flask.Flask(__name__, static_url_path = '', static_folder='/web/static', template_folder='web/templates')
 
 @app.route('/')
-def nao_entre_em_panico():
-    if request.headers.get('Authorization') == '42':
-        return jsonify({"42": "a resposta para a vida, o universo e tudo mais"})
-    return jsonify({"message": "Não entre em pânico!"})
+def index():
+    """ renderiza o index.html"""
+    
+    return flask.render_template('index.html')
+
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
